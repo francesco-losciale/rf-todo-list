@@ -1,11 +1,11 @@
 (ns rf-todo-list.core
   (:require
-   [reagent.dom :as rdom]
-   [re-frame.core :as re-frame]
-   [rf-todo-list.events :as events]
-   [rf-todo-list.views :as views]
-   [rf-todo-list.config :as config]
-   ))
+    [reagent.dom :as rdom]
+    [re-frame.core :as re-frame]
+    [rf-todo-list.events :as events]
+    [rf-todo-list.views :as views]
+    [rf-todo-list.config :as config]
+    ))
 
 
 (defn dev-setup []

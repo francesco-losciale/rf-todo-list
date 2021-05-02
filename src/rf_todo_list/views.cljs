@@ -5,15 +5,16 @@
     ))
 
 (defn main-panel []
-      (let [todo-list @(re-frame/subscribe [:todo-list-load])]
-           [:div
-            [:ul
-             (for [item todo-list] ^{:key (:id item)}
-                  [:li [item :description]])
-             ]
-            [:form [:button
-                    {:type "button"
-                     :on-click (fn [_]
-                                 (re-frame/dispatch [:todo-list-add-item
-                                                     {:id 3 :description "Item 3" }]))}
-                    "Click Me!"]]]))
+  (let [todo-list @(re-frame/subscribe [:todo-list-load])]
+    [:div
+     [:ul
+      (for [item todo-list] ^{:key (:id item)}
+                            [:li [item :description]])
+      ]
+     [:form [:button
+             {:type "button"
+              :on-click
+                    (fn [_]
+                      (re-frame/dispatch [:todo-list-add-item
+                                          {:id 3 :description "Item 3"}]))}
+             "Click Me!"]]]))
