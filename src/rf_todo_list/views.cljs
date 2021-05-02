@@ -2,6 +2,7 @@
   (:require
     [reagent.core :as re-agent]
     [re-frame.core :as re-frame]
+    [rf-todo-list.subs]                                     ; call reframe subscription
     ))
 
 (defn main-panel []
