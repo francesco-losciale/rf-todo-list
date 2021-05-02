@@ -11,7 +11,7 @@
     [:div
      [:ul
       (for [item todo-list] ^{:key (:id item)}
-                            [:li [item :description]])
+                            [:li [item :text]])
       ]
      [:form
       [:input {:name    "description"
@@ -23,5 +23,5 @@
         :on-click
               (fn [_]
                 (re-frame/dispatch [:todo-list-add-item
-                                    {:id 3 :description @value}]))}
+                                    {:id 3 :text @value}]))}
        "Add"]]]))
