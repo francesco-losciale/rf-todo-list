@@ -11,10 +11,12 @@
       (for [item todo-list] ^{:key (:id item)}
                             [:li [item :description]])
       ]
-     [:form [:button
+     [:form
+      [:input#description {:name "description" :type "text"}]
+      [:button
              {:type "button"
               :on-click
                     (fn [_]
                       (re-frame/dispatch [:todo-list-add-item
                                           {:id 3 :description "Item 3"}]))}
-             "Click Me!"]]]))
+             "Add"]]]))
