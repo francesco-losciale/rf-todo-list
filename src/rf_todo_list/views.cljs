@@ -2,7 +2,6 @@
   (:require
     [reagent.core :as re-agent]
     [re-frame.core :as re-frame]
-    [rf-todo-list.subs :as subs]
     ))
 
 (defn main-panel []

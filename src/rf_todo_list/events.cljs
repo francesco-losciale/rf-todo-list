@@ -1,7 +1,6 @@
 (ns rf-todo-list.events
   (:require
     [re-frame.core :as re-frame]
-    [rf-todo-list.db :as db]
     ))
 
 
