@@ -15,3 +15,11 @@
  (fn [_ _]
      (re-frame/dispatch [:todo-list-load])
      ))
+
+(re-frame/reg-event-db
+  :todo-list-add-item
+  (fn [db event]
+      (let [item (second event)]
+        (update db :todo-list conj item))))
+
+

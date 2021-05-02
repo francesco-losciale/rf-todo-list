@@ -11,4 +11,9 @@
              (for [item todo-list] ^{:key (:id item)}
                   [:li [item :description]])
              ]
-            [:form [:button {:type "button"} "Click Me!"]]]))
+            [:form [:button
+                    {:type "button"
+                     :on-click (fn [_]
+                                 (re-frame/dispatch [:todo-list-add-item
+                                                     {:id 3 :description "Item 3" }]))}
+                    "Click Me!"]]]))
