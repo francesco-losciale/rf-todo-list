@@ -32,7 +32,7 @@
     (let [db (:db cofx)
           next-item-id (:next-item-id cofx)
           item (second event)
-          new-db (update db :todo-list conj item)]
+          new-db (update db :todo-list conj (assoc item :id next-item-id))]
       (assoc cofx :db new-db)
       )))
 

@@ -23,5 +23,5 @@
         :on-click
               (fn [_]
                 (re-frame/dispatch [:todo-list-add-item
-                                    {:id 3 :text @value}]))}
+                                    {:text @value}]))}
        "Add"]]]))
