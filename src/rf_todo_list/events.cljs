@@ -7,7 +7,7 @@
 (re-frame/reg-event-db
   :todo-list-load
   (fn [db _]
-    (assoc db :todo-list [{:id 1 :text "Item 1"} {:id 2 :text "Item 2"}])))
+    (assoc db :todo-list [])))
 
 (re-frame/reg-event-db
   ::initialize-db
