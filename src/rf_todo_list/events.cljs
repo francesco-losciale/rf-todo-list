@@ -30,6 +30,7 @@
   [add-next-item-id]
   (fn [cofx event]
     (let [db (:db cofx)
+          next-item-id (:next-item-id cofx)
           item (second event)
           new-db (update db :todo-list conj item)]
       (assoc cofx :db new-db)
