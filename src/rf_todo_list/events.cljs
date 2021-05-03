@@ -25,11 +25,14 @@
                 (assoc-in context [:coeffects :next-item-id] new-item-id)
                 ))))
 
-(re-frame/reg-event-db
+(re-frame/reg-event-fx
   :todo-list-add-item
   [add-next-item-id]
-  (fn [db event]
-    (let [item (second event)]
-      (update db :todo-list conj item))))
+  (fn [cofx event]
+    (let [db (:db cofx)
+          item (second event)
+          new-db (update db :todo-list conj item)]
+      (assoc cofx :db new-db)
+      )))
 
 
