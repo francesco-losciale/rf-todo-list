@@ -15,6 +15,7 @@
     (re-frame/dispatch [:todo-list-load])
     ))
 
+; TODO refactor, test
 (def add-next-item-id
   (re-frame/->interceptor
     :id :next-item-id
@@ -25,6 +26,7 @@
                 (assoc-in context [:coeffects :next-item-id] new-item-id)
                 ))))
 
+; TODO refactor, test
 (re-frame/reg-event-fx
   :todo-list-add-item
   [add-next-item-id]
