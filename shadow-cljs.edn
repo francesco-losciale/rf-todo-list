@@ -2,7 +2,7 @@
 
  
 
- :source-paths ["src/main"]
+ :source-paths ["src/main" "src/test"]
 
  :dependencies
  [[reagent "1.0.0"]
@@ -26,4 +26,10 @@
    :dev
    {:compiler-options
     {:closure-defines
-     { }}}}}}
+     { }}}}
+  :test
+  {:target    :node-test
+   :output-to "out/node-tests.js"
+   :ns-regexp "-spec$"
+   :autorun   true}
+  }}
