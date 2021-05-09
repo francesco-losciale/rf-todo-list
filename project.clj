@@ -7,4 +7,4 @@
    [binaryage/devtools "1.0.3"]]
 
   :source-paths
-  ["src"])
+  ["src/main"])
