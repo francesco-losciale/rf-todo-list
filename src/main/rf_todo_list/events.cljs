@@ -27,10 +27,7 @@
                 (assoc-in context [:coeffects :next-item-id] (next-item-id todo-list))
                 ))))
 
-; TODO refactor, test
-(re-frame/reg-event-fx
-  :todo-list-add-item
-  [add-next-item-id]
+(def todo-list-add-item-fx-handler
   (fn [cofx event]
     (let [db (:db cofx)
           next-item-id (:next-item-id cofx)
@@ -38,5 +35,10 @@
           new-db (update db :todo-list conj (assoc item :id next-item-id))]
       (assoc cofx :db new-db)
       )))
+
+(re-frame/reg-event-fx
+  :todo-list-add-item
+  [add-next-item-id]
+  todo-list-add-item-fx-handler)
 
 
