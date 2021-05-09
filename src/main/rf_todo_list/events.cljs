@@ -1,6 +1,7 @@
 (ns rf-todo-list.events
   (:require
     [re-frame.core :as re-frame]
+    [rf-todo-list.domain :refer [next-item-id]]
     ))
 
 
@@ -22,9 +23,8 @@
     :id :next-item-id
     :before (fn [context]
               (let [db (:db (:coeffects context))
-                    todo-list (:todo-list db)
-                    new-item-id ((fnil inc 0) (:id (last todo-list)))]
-                (assoc-in context [:coeffects :next-item-id] new-item-id)
+                    todo-list (:todo-list db)]
+                (assoc-in context [:coeffects :next-item-id] (next-item-id todo-list))
                 ))))
 
 ; TODO refactor, test
