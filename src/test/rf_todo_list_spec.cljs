@@ -11,8 +11,15 @@
   )
 
 (deftest todo-list-add-item-fx-handler-test
-  (let [context {:coeffects {:next-item-id 1}
-                 :db {:todo-list []}}]
-   (is (= (todo-list-add-item-fx-handler (:coeffects context) [:todo-list-add-item {:text "text"}])
-          {:next-item-id 1 :db {:todo-list [{:id 1 :text "text"}]}}))
-   ))
+  (let [context-with-empty-todo-list {:coeffects {:next-item-id 1 :db {:todo-list []}}}
+        context-with-singleton-todo-list {:coeffects {:next-item-id 2 :db {:todo-list [{:id 1 :text "previously added"}]}}}
+        item {:text "some description"}
+        event [:todo-list-add-item item]]
+   (is
+     (= (todo-list-add-item-fx-handler (:coeffects context-with-empty-todo-list) event)
+          {:next-item-id 1 :db {:todo-list [{:id 1 :text "some description"}]}}))
+   (is
+     (= (todo-list-add-item-fx-handler (:coeffects context-with-singleton-todo-list) [:todo-list-add-item item])
+          {:next-item-id 2 :db {:todo-list [{:id 1 :text "previously added"} {:id 2 :text "some description"}]}}))
+   )
+  )
