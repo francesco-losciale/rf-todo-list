@@ -5,7 +5,6 @@
     [rf-todo-list.subs]                                     ; call reframe subscription
     ))
 
-; TODO refactor, create generic components
 (defn main-panel []
   (let [todo-list @(re-frame/subscribe [:todo-list-load])
         value (re-agent/atom nil)]
