@@ -16,8 +16,6 @@
     (re-frame/dispatch [:todo-list-load])
     ))
 
-
-; TODO refactor, test
 (def add-next-item-id
   (re-frame/->interceptor
     :id :next-item-id
