@@ -39,4 +39,11 @@
   [add-next-item-id]
   todo-list-add-item-fx-handler)
 
+(re-frame/reg-event-db
+  :todo-list-remove-item
+  (fn [db event]
+    (let [item-id (second event)
+          todo-list (:todo-list db)]
+      (assoc db :todo-list (remove #(= (:id %) item-id) todo-list)))
+    ))
 
