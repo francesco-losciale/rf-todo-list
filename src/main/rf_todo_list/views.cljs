@@ -11,11 +11,21 @@
     [:div
      [:ul
       (for [item todo-list] ^{:key (:id item)}
-                            [:li [item :text]])
+                            [:li
+                             [:div
+                              [item :text]
+                              [:button
+                               {:type "button"
+                                :on-click
+                                      (fn [_]
+                                        (re-frame/dispatch
+                                          [:todo-list-remove-item
+                                           (:id item)]))}
+                               " - "]]])
       ]
      [:form
-      [:input {:name    "description"
-               :type    "text"
+      [:input {:name      "description"
+               :type      "text"
                :on-change #(reset! value (-> % .-target .-value))
                }]
       [:button
@@ -24,5 +34,5 @@
               (fn [_]
                 (if (not (nil? @value))
                   (re-frame/dispatch [:todo-list-add-item
-                                     {:text @value}])))}
+                                      {:text @value}])))}
        "Add"]]]))
