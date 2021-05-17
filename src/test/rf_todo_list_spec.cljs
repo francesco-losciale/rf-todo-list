@@ -1,7 +1,8 @@
 (ns rf-todo-list-spec
   (:require [clojure.test :refer [deftest is testing]]
             [rf-todo-list.domain :refer [next-item-id]]
-            [rf-todo-list.events :refer [todo-list-add-item-fx-handler]]))
+            [rf-todo-list.events :refer [todo-list-add-item-fx-handler
+                                         todo-list-remove-item-db-handler]]))
 
 (deftest next-item-id-test
   (is (= (next-item-id []) 1))
@@ -21,5 +22,13 @@
    (is
      (= (todo-list-add-item-fx-handler (:coeffects context-with-singleton-todo-list) [:todo-list-add-item item])
           {:next-item-id 2 :db {:todo-list [{:id 1 :text "previously added"} {:id 2 :text "some description"}]}}))
+   (is
+     (= (todo-list-remove-item-db-handler {:todo-list [{:id 1 :text "previously added"}]}
+                                          [:todo-list-remove-item 1])
+        {:todo-list []}))
+   (is
+     (= (todo-list-remove-item-db-handler {:todo-list [{:id 1 :text "previously added"} {:id 2 :text "another one"}]}
+                                          [:todo-list-remove-item 2])
+        {:todo-list [{:id 1 :text "previously added"}]}))
    )
   )
