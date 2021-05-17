@@ -25,7 +25,7 @@
                 (assoc-in context [:coeffects :next-item-id] (next-item-id todo-list))
                 ))))
 
-(def todo-list-add-item-fx-handler
+(def add-item-fx-handler
   (fn [cofx event]
     (let [db (:db cofx)
           next-item-id (:next-item-id cofx)
@@ -37,16 +37,17 @@
 (re-frame/reg-event-fx
   :todo-list-add-item
   [add-next-item-id]
-  todo-list-add-item-fx-handler)
+  add-item-fx-handler)
 
-(def todo-list-remove-item-db-handler
+(def remove-item-db-handler
   (fn [db event]
     (let [item-id (second event)
-          todo-list (:todo-list db)]
-      (assoc db :todo-list (remove #(= (:id %) item-id) todo-list))
+          todo-list (:todo-list db)
+          is-item-id? #(= (:id %) item-id)]
+      (assoc db :todo-list (remove is-item-id? todo-list))
       )))
 
 (re-frame/reg-event-db
   :todo-list-remove-item
-  todo-list-remove-item-db-handler)
+  remove-item-db-handler)
 
