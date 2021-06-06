@@ -57,5 +57,5 @@
   (fn [db event]
     (let [todo-list (second event)]
       (db/save todo-list)
-      db
+      (assoc db :todo-list [])
       )))

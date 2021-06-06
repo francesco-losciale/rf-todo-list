@@ -6,7 +6,7 @@
     ))
 
 (defn main-panel []
-  (let [todo-list @(re-frame/subscribe [:todo-list-load])
+  (let [todo-list @(re-frame/subscribe [:todo-list-load :todo-list-save])
         value (re-agent/atom nil)]
     [:div
      [:ul
