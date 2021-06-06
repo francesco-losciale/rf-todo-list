@@ -2,6 +2,7 @@
   (:require
     [re-frame.core :as re-frame]
     [rf-todo-list.domain :refer [next-item-id]]
+    [rf-todo-list.db :as db]
     ))
 
 
@@ -51,3 +52,10 @@
   :todo-list-remove-item
   remove-item-db-handler)
 
+(re-frame/reg-event-db
+  :todo-list-save
+  (fn [db event]
+    (let [todo-list (second event)]
+      (db/save todo-list)
+      db
+      )))

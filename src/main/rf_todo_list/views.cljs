@@ -35,4 +35,11 @@
                 (if (not (nil? @value))
                   (re-frame/dispatch [:todo-list-add-item
                                       {:text @value}])))}
-       "Add"]]]))
+       "Add"]
+      [:button
+       {:type "button"
+        :on-click
+              (fn [_]
+                (re-frame/dispatch [:todo-list-save
+                                    { :todo-list todo-list}]))}
+       "Save"]]]))
