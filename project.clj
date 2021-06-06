@@ -3,6 +3,7 @@
   [[thheller/shadow-cljs "2.11.14" :scope "provided"]
    [reagent "1.0.0"]
    [re-frame "1.2.0"]
+   ; TODO can you remove them?
 
    [binaryage/devtools "1.0.3"]]
 
