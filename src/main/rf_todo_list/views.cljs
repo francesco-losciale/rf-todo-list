@@ -25,6 +25,15 @@
             (reset! draft ""))}
    "Add"])
 
+(defn input-text [value draft]
+  [:input {:type      "text"
+           :on-change #(reset! draft (.. % -target -value))
+           :value     @value
+           }])
+
+(def draft (re-agent/atom nil))
+(def value (re-agent/track #(or @draft "")))
+
 (defn main-panel []
   (let [todo-list @(re-frame/subscribe [:todo-list-load :todo-list-save])]
     [:div
@@ -42,13 +51,8 @@
                                            (:id item)]))}
                                " - "]]])
       ]
-     (re-agent/with-let [draft (re-agent/atom nil)
-                         value (re-agent/track #(or @draft ""))]
-       [:div
-        [:input {:type      "text"
-                 :on-change #(reset! draft (.. % -target -value))
-                 :value     @value
-                 }]
-        (add-button value draft)
-        (save-button todo-list)
-        ])]))
+     [:div
+      (input-text value draft)
+      (add-button value draft)
+      (save-button todo-list)
+      ]]))
