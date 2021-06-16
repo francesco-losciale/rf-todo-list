@@ -31,26 +31,28 @@
            :value     @value
            }])
 
+(defn todo-list-in-progress [todo-list]
+  [:ul
+   (for [item todo-list] ^{:key (:id item)}
+                        [:li
+                         [:div
+                          [item :text]
+                          [:button
+                           {:type "button"
+                            :on-click
+                                  (fn [_]
+                                    (re-frame/dispatch
+                                      [:todo-list-remove-item
+                                       (:id item)]))}
+                           " - "]]])])
+
 (def draft (re-agent/atom nil))
 (def value (re-agent/track #(or @draft "")))
 
 (defn main-panel []
   (let [todo-list @(re-frame/subscribe [:todo-list-load :todo-list-save])]
     [:div
-     [:ul
-      (for [item todo-list] ^{:key (:id item)}
-                            [:li
-                             [:div
-                              [item :text]
-                              [:button
-                               {:type "button"
-                                :on-click
-                                      (fn [_]
-                                        (re-frame/dispatch
-                                          [:todo-list-remove-item
-                                           (:id item)]))}
-                               " - "]]])
-      ]
+     (todo-list-in-progress todo-list)
      [:div
       (input-text value draft)
       (add-button value draft)
