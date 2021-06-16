@@ -14,6 +14,17 @@
                                 {:todo-list todo-list}]))}
    "Save"])
 
+(defn add-button [value draft]
+  [:button
+   {:type "button"
+    :on-click
+          (fn [_]
+            (if (not (nil? @value))
+              (re-frame/dispatch [:todo-list-add-item
+                                  {:text @value}]))
+            (reset! draft ""))}
+   "Add"])
+
 (defn main-panel []
   (let [todo-list @(re-frame/subscribe [:todo-list-load :todo-list-save])]
     [:div
@@ -38,14 +49,6 @@
                  :on-change #(reset! draft (.. % -target -value))
                  :value     @value
                  }]
-        [:button
-         {:type "button"
-          :on-click
-                (fn [_]
-                  (if (not (nil? @value))
-                    (re-frame/dispatch [:todo-list-add-item
-                                        {:text @value}]))
-                  (reset! draft ""))}
-         "Add"]
+        (add-button value draft)
         (save-button todo-list)
         ])]))
