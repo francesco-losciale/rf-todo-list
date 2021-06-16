@@ -5,6 +5,15 @@
     [rf-todo-list.subs]                                     ; call reframe subscription
     ))
 
+(defn save-button [todo-list]
+  [:button
+   {:type "button"
+    :on-click
+          (fn [_]
+            (re-frame/dispatch [:todo-list-save
+                                {:todo-list todo-list}]))}
+   "Save"])
+
 (defn main-panel []
   (let [todo-list @(re-frame/subscribe [:todo-list-load :todo-list-save])]
     [:div
@@ -38,10 +47,5 @@
                                         {:text @value}]))
                   (reset! draft ""))}
          "Add"]
-        [:button
-         {:type "button"
-          :on-click
-                (fn [_]
-                  (re-frame/dispatch [:todo-list-save
-                                      {:todo-list todo-list}]))}
-         "Save"]])]))
+        (save-button todo-list)
+        ])]))
