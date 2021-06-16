@@ -53,8 +53,7 @@
   (let [todo-list @(re-frame/subscribe [:todo-list-load :todo-list-save])]
     [:div
      (todo-list-in-progress todo-list)
-     [:div
-      (input-text value draft)
-      (add-button value draft)
-      (save-button todo-list)
-      ]]))
+     (input-text value draft)
+     (add-button value draft)
+     (save-button todo-list)]
+    ))
