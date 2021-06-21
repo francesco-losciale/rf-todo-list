@@ -3,12 +3,13 @@
     [ajax.core :refer [GET POST]]
     ))
 
-(defn save [todo-list]
+(defn save [todo-list handler]
   (POST
    "http://localhost:3000/api/v1/todo-lists"
    {:headers {"Accept"       "application/transit+json"
               "Content-type" "application/edn"}
-    :body    todo-list}
+    :body    todo-list
+    :handler handler}
    ))
 
 (defn get-all [handler]

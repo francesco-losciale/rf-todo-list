@@ -71,6 +71,8 @@
   :todo-list-save
   (fn [db event]
     (let [todo-list (second event)]
-      (db/save todo-list)
+      (db/save todo-list
+               (fn [_]
+                 (re-frame/dispatch [:list-of-todo-list-load])))
       (assoc db :todo-list [])
       )))
