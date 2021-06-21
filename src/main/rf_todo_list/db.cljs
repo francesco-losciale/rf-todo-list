@@ -1,6 +1,6 @@
 (ns rf-todo-list.db
   (:require
-    [ajax.core :refer [GET POST]]
+    [ajax.core :refer [GET POST PUT]]
     ))
 
 (defn save [todo-list handler]
@@ -11,6 +11,15 @@
     :body    todo-list
     :handler handler}
    ))
+
+(defn update [id todo-list handler]
+  (PUT
+    (str "http://localhost:3000/api/v1/todo-lists/" id)
+    {:headers {"Accept"       "application/transit+json"
+               "Content-type" "application/edn"}
+     :body    todo-list
+     :handler handler}
+    ))
 
 (defn get-all [handler]
   (GET

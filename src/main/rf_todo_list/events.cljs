@@ -91,7 +91,10 @@
         (db/save todo-list
                  (fn [_]
                    (re-frame/dispatch [:list-of-todo-list-load])))
-        (js/alert "Implement PUT")
+        (db/update todo-list-id
+                   todo-list
+                   (fn [_]
+                     (re-frame/dispatch [:list-of-todo-list-load])))
         )
       (-> db
           (assoc :todo-list [])
