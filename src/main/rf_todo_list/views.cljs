@@ -50,10 +50,16 @@
 (def value (re-agent/track #(or @draft "")))
 
 (defn main-panel []
-  (let [todo-list @(re-frame/subscribe [:todo-list-load :todo-list-save])]
+  [:div
+   (let [list-of-todo-list []]
+     (for [todo-list list-of-todo-list]
+       [:li
+        [:div
+         [todo-list :_id]]]))
+   (let [todo-list @(re-frame/subscribe [:todo-list-load :todo-list-save])]
     [:div
      (todo-list-in-progress todo-list)
      (input-text value draft)
      (add-button value draft)
      (save-button todo-list)]
-    ))
+    )])
