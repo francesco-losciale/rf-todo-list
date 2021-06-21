@@ -56,6 +56,7 @@
          [single-todo-list :_id]]])
      ]))
 
+; declare here so that they are not recreated when the view is re-rendered.
 (def draft (re-agent/atom nil))
 (def value (re-agent/track #(or @draft "")))
 
