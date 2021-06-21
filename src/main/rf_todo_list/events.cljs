@@ -29,16 +29,17 @@
         todo-list-id
         (fn [response]
           (re-frame/dispatch-sync
-            [:todo-list-set (response :todo-list)])
+            [:todo-list-set (response :todo-list) todo-list-id])
           ))
       db)))
 
 (re-frame/reg-event-db
   :todo-list-set
-  (fn [db event]
-    (let [todo-list (second event)]
-      (assoc db :todo-list todo-list)
-      )))
+  (fn [db [_ todo-list todo-list-id]]
+    (-> db
+        (assoc :todo-list todo-list)
+        (assoc :todo-list-id todo-list-id))
+    ))
 
 (re-frame/reg-event-db
   ::initialize-db
@@ -84,9 +85,15 @@
 (re-frame/reg-event-db
   :todo-list-save
   (fn [db event]
-    (let [todo-list (second event)]
-      (db/save todo-list
-               (fn [_]
-                 (re-frame/dispatch [:list-of-todo-list-load])))
-      (assoc db :todo-list [])
+    (let [todo-list (second event)
+          todo-list-id (db :todo-list-id)]
+      (if (nil? todo-list-id)
+        (db/save todo-list
+                 (fn [_]
+                   (re-frame/dispatch [:list-of-todo-list-load])))
+        (js/alert "Implement PUT")
+        )
+      (-> db
+          (assoc :todo-list [])
+          (assoc :todo-list-id nil))
       )))
