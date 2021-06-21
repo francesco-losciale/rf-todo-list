@@ -21,3 +21,13 @@
      :error-handler (fn [{:keys [status status-text]}]
                       (js/alert status))}
     ))
+
+(defn get-todo-list [id handler]
+  (GET
+    (str "http://localhost:3000/api/v1/todo-lists/" id)
+    {:headers {"Accept"       "application/transit+json"
+               "Content-type" "application/edn"}
+     :handler handler
+     :error-handler (fn [{:keys [status status-text]}]
+                      (js/alert status))}
+    ))

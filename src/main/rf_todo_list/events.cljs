@@ -23,8 +23,22 @@
 
 (re-frame/reg-event-db
   :todo-list-load
-  (fn [db _]
-    (assoc db :todo-list [])))
+  (fn [db event]
+    (let [todo-list-id (second event)]
+      (db/get-todo-list
+        todo-list-id
+        (fn [response]
+          (re-frame/dispatch-sync
+            [:todo-list-set (response :todo-list)])
+          ))
+      db)))
+
+(re-frame/reg-event-db
+  :todo-list-set
+  (fn [db event]
+    (let [todo-list (second event)]
+      (assoc db :todo-list todo-list)
+      )))
 
 (re-frame/reg-event-db
   ::initialize-db

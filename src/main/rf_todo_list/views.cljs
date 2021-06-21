@@ -53,7 +53,14 @@
        ^{:key (single-todo-list :_id)}
        [:li
         [:div
-         [single-todo-list :_id]]])
+         [single-todo-list :_id]
+         [:button
+          {:type "button"
+           :on-click
+                 (fn [_]
+                   (re-frame/dispatch [:todo-list-load (single-todo-list :_id)])
+                   )}
+          "Load"]]])
      ]))
 
 ; declare here so that they are not recreated when the view is re-rendered.
@@ -61,7 +68,7 @@
 (def value (re-agent/track #(or @draft "")))
 
 (defn main-panel []
-  (let [todo-list @(re-frame/subscribe [:todo-list-load :todo-list-save])]
+  (let [todo-list @(re-frame/subscribe [:todo-list-load :todo-list-save :todo-list-set])]
     [:div
      (list-of-todo-list)
      (todo-list-in-progress todo-list)
