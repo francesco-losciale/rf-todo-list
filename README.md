@@ -11,3 +11,8 @@ Once connected the REPL, run `(shadow/repl :app)` to switch to the shadow-cljs e
 `shadow-cljs compile test && node out/node-tests.js`
 
 `shadow-cljs watch app`
+
+### TODO
+
+- search `TODO` in the codebase to find gaps that needs to be completed
+- repeat the exercise doing TDD and REPL this time. 

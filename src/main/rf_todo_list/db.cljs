@@ -3,6 +3,8 @@
     [ajax.core :refer [GET POST PUT]]
     ))
 
+; TODO how to add env variable for backend api?
+
 (defn save [todo-list handler]
   (POST
    "http://localhost:3000/api/v1/todo-lists"
