@@ -6,3 +6,9 @@
   :todo-list-load
   (fn [db]
     (:todo-list db)))
+
+(re-frame/reg-sub
+  :list-of-todo-list-set
+  (fn [db]
+    (db :list-of-todo-list)
+    ))

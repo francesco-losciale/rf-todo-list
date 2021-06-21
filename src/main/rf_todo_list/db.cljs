@@ -11,13 +11,12 @@
     :body    todo-list}
    ))
 
-(defn get-all []
+(defn get-all [handler]
   (GET
     "http://localhost:3000/api/v1/todo-lists"
-    {:headers {"Accept"       "application/json"
-               "Content-type" "application/json"}
-     :handler (fn [response]
-                (js/alert response))
+    {:headers {"Accept"       "application/transit+json"
+               "Content-type" "application/edn"}
+     :handler handler
      :error-handler (fn [{:keys [status status-text]}]
                       (js/alert status))}
     ))

@@ -5,6 +5,21 @@
     [rf-todo-list.db :as db]
     ))
 
+(re-frame/reg-event-db
+  :list-of-todo-list-load
+  (fn [db _]
+    (db/get-all (fn [response]
+                  (re-frame/dispatch-sync
+                    [:list-of-todo-list-set response])))
+    db
+    ))
+
+(re-frame/reg-event-db
+  :list-of-todo-list-set
+  (fn [db event]
+    (let [list-of-list (second event)]
+      (assoc db :list-of-todo-list list-of-list)
+      )))
 
 (re-frame/reg-event-db
   :todo-list-load
@@ -14,7 +29,7 @@
 (re-frame/reg-event-db
   ::initialize-db
   (fn [_ _]
-    (re-frame/dispatch [:todo-list-load])
+    (re-frame/dispatch [:list-of-todo-list-load])
     ))
 
 (def add-next-item-id
